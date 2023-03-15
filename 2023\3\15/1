@@ -1,0 +1,166 @@
+package com.bean;
+
+import java.util.ArrayList;
+
+public class Line {
+    private String startstopname;//起始站站名
+    private String endstopname;//结束站站名
+    private int startstopID;//	起始站站编号
+    private int endstopID;//结束站站编号
+    private String startline1=null;//起始点的第一条线
+    private String startline2=null;//起始点第二条线
+    private String endline1=null;//结束点的第一条线
+    private String endline2=null;//结束点的第二条线
+    private ArrayList<String> array = new ArrayList<String>();//存放过程站点
+    private int originline;//起始站所在线路
+    private int finishline;//结束点所在线路
+    private String middlestop;//中转站站名
+    private String temporarystartstopname;//临时起始站点名称
+    private String temporaryendstopname;//临时终点站点名称
+    private int temporaryline=0;//临时线路
+
+    public Line() {
+    }
+
+    public String getStartstopname() {
+        return startstopname;
+    }
+
+    public void setStartstopname(String startstopname) {
+        this.startstopname = startstopname;
+    }
+
+    public String getEndstopname() {
+        return endstopname;
+    }
+
+    public void setEndstopname(String endstopname) {
+        this.endstopname = endstopname;
+    }
+
+    public int getStartstopID() {
+        return startstopID;
+    }
+
+    public void setStartstopID(int startstopID) {
+        this.startstopID = startstopID;
+    }
+
+    public int getEndstopID() {
+        return endstopID;
+    }
+
+    public void setEndstopID(int endstopID) {
+        this.endstopID = endstopID;
+    }
+
+    public String getStartline1() {
+        return startline1;
+    }
+
+    public void setStartline1(String startline1) {
+        this.startline1 = startline1;
+    }
+
+    public String getStartline2() {
+        return startline2;
+    }
+
+    public void setStartline2(String startline2) {
+        this.startline2 = startline2;
+    }
+
+    public String getEndline1() {
+        return endline1;
+    }
+
+    public void setEndline1(String endline1) {
+        this.endline1 = endline1;
+    }
+
+    public String getEndline2() {
+        return endline2;
+    }
+
+    public void setEndline2(String endline2) {
+        this.endline2 = endline2;
+    }
+
+    public ArrayList<String> getArray() {
+        return array;
+    }
+
+    public void setArray(ArrayList<String> array) {
+        this.array = array;
+    }
+
+    public int getOriginline() {
+        return originline;
+    }
+
+    public void setOriginline(int originline) {
+        this.originline = originline;
+    }
+
+    public int getFinishline() {
+        return finishline;
+    }
+
+    public void setFinishline(int finishline) {
+        this.finishline = finishline;
+    }
+
+    public String getMiddlestop() {
+        return middlestop;
+    }
+
+    public void setMiddlestop(String middlestop) {
+        this.middlestop = middlestop;
+    }
+
+    public String getTemporarystartstopname() {
+        return temporarystartstopname;
+    }
+
+    public void setTemporarystartstopname(String temporarystartstopname) {
+        this.temporarystartstopname = temporarystartstopname;
+    }
+
+    public String getTemporaryendstopname() {
+        return temporaryendstopname;
+    }
+
+    public void setTemporaryendstopname(String temporaryendstopname) {
+        this.temporaryendstopname = temporaryendstopname;
+    }
+
+    public int getTemporaryline() {
+        return temporaryline;
+    }
+
+    public void setTemporaryline(int temporaryline) {
+        this.temporaryline = temporaryline;
+    }
+
+    @Override
+    public String toString() {
+        return "Line{" +
+                "startstopname='" + startstopname + '\'' +
+                ", endstopname='" + endstopname + '\'' +
+                ", startstopID=" + startstopID +
+                ", endstopID=" + endstopID +
+                ", startline1='" + startline1 + '\'' +
+                ", startline2='" + startline2 + '\'' +
+                ", endline1='" + endline1 + '\'' +
+                ", endline2='" + endline2 + '\'' +
+                ", array=" + array +
+                ", originline=" + originline +
+                ", finishline=" + finishline +
+                ", middlestop='" + middlestop + '\'' +
+                ", temporarystartstopname='" + temporarystartstopname + '\'' +
+                ", temporaryendstopname='" + temporaryendstopname + '\'' +
+                ", temporaryline=" + temporaryline +
+                '}';
+    }
+}
+

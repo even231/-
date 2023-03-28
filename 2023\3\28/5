@@ -1,0 +1,55 @@
+java
+Copy code
+public class PathFinder {
+    private static final int INFINITY = Integer.MAX_VALUE;
+    private Graph graph;
+    private int[] distTo;
+    private boolean[] marked;
+    private Edge[] edgeTo;
+    private PriorityQueue<Station> pq;
+
+    public PathFinder(Graph graph) {
+        this.graph = graph;
+    }
+
+    public void findPath(Station start, Station end) {
+        distTo = new int[graph.getNumVertices()];
+        marked = new boolean[graph.getNumVertices()];
+        edgeTo = new Edge[graph.getNumVertices()];
+        pq = new PriorityQueue<>(graph.getNumVertices());
+
+        for (int v = 0; v < graph.getNumVertices(); v++) {
+            distTo[v] = INFINITY;
+        }
+
+        distTo[start.getId()] = 0;
+        pq.add(start);
+
+        while (!pq.isEmpty()) {
+            Station v = pq.poll();
+            if (v == end) {
+                break;
+            }
+            for (Edge e : graph.getAdjacentEdges(v)) {
+                Station w = e.getOther(v);
+                if (distTo[v.getId()] + e.getWeight() < distTo[w.getId()]) {
+                    distTo[w.getId()] = distTo[v.getId()] + e.getWeight();
+                    edgeTo[w.getId()] = e;
+                    if (pq.contains(w)) {
+                        pq.remove(w);
+                    }
+                    pq.add(w);
+                }
+            }
+        }
+    }
+
+    public Iterable<Edge> getPath() {
+        List<Edge> path = new ArrayList<>();
+        for (Edge e = edgeTo[graph.getVertexIndex(graph.getEndStation())]; e != null; e = edgeTo[graph.getVertexIndex(e.getOther(graph.getVertex(e)))]) {
+            path.add(e);
+        }
+        Collections.reverse(path);
+        return path;
+    }
+}

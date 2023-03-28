@@ -1,0 +1,178 @@
+dao.java:
+
+package Date;
+
+import Model.LineModel;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.ArrayList;
+public class Dao {
+
+    public final String U = "jdbc:mysql://localhost:3306/db?&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useSSL=true";
+    public final String UName = "root";
+    public final String PassWord = "";
+
+    public LineModel selectkluxian(int no1) {
+
+        PreparedStatement ps = null;
+        Connection con = null;
+        LineModel kc= new LineModel();
+        List<String> station = new ArrayList<>();
+        ResultSet rs = null;
+
+        try {
+
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con = DriverManager.getConnection(U, UName, PassWord);
+            String sql = "select * from line where no1 =?";
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, no1);
+            rs = ps.executeQuery();
+
+            int count = 0;
+            while(rs.next())
+            {
+                count++;
+
+                //System.out.println(count);
+                int ID=rs.getInt("ID");
+                String name=rs.getString("name");
+                //System.out.println(name);
+                int no=rs.getInt("no1");
+                if(count == 1) {
+                    kc.setLineName(no + "号线");
+                }
+                station.add(name);
+                //list.add(kc);
+            }
+            kc.setStations(station);
+            return kc;
+        }catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }catch (Exception e) {
+
+            e.printStackTrace();
+
+        }finally {
+
+            try {
+                if(rs!= null) rs.close();
+                if(ps!= null) ps.close();
+                if(con!= null) con.close();
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        }
+     return kc;
+    }
+
+    public List<String> selectzhantai(String name) {
+
+        PreparedStatement ps = null;
+        Connection con = null;
+        LineModel kc= new LineModel();
+        List<String> station = new ArrayList<>();
+        List<String> s = new ArrayList<>();
+        ResultSet rs = null;
+
+        try {
+
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con = DriverManager.getConnection(U, UName, PassWord);
+            String sql = "select * from line where name =?";
+            ps = con.prepareStatement(sql);
+            ps.setString(1, name);
+            rs = ps.executeQuery();
+
+            int count = 0;
+            while(rs.next())
+            {
+                String tname=rs.getString("name");
+                int no = rs.getInt("no1");
+                //System.out.println(name);
+                s.add(no+"号线"+" ");
+                //list.add(kc);
+            }
+            return s;
+        }catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }catch (Exception e) {
+
+            e.printStackTrace();
+
+        }finally {
+
+            try {
+                if(rs!= null) rs.close();
+                if(ps!= null) ps.close();
+                if(con!= null) con.close();
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        }
+        return s;
+    }
+
+
+    public List<String> selectxianlu2(int no1) {
+
+        PreparedStatement ps = null;
+        Connection con = null;
+        List<String> station = new ArrayList<>();
+        List<String> s = new ArrayList<>();
+        ResultSet rs = null;
+
+        try {
+
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con = DriverManager.getConnection(U, UName, PassWord);
+            String sql = "select * from line where  =?";
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, no1);
+            rs = ps.executeQuery();
+
+            int count = 0;
+            while(rs.next())
+            {
+                String name=rs.getString("name");
+                station.add(name);
+                //list.add(kc);
+            }
+            return station;
+        }catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }catch (Exception e) {
+
+            e.printStackTrace();
+
+        }finally {
+
+            try {
+                if(rs!= null) rs.close();
+                if(ps!= null) ps.close();
+                if(con!= null) con.close();
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        }
+        return station;
+    }
+
+}

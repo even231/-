@@ -1,0 +1,75 @@
+package subway;
+
+ 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+ 
+public class useing {
+
+public String findbylin[]=new String[100];
+public String findbyname[]=new String[100];
+public String finda[]=new String[100];
+public int i=0,j=0,zhandianshu,xianlu,jieshu=0;
+public String temps="-1";
+
+public String findbylin(String lin) throws Exception {
+Class.forName("com.mysql.cj.jdbc.Driver");
+Connection conn=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/kebiao", "root", "123456");
+String sql="select * from station_information";
+Statement stmt= conn.createStatement();
+ResultSet find=stmt.executeQuery(sql);
+while(find.next()) {
+if(find.getString(2).equals(lin)) {
+findbylin[i]=new String();
+findbylin[i]=find.getString(3);
+i++;
+}
+}
+
+if(findbylin[0].equals(null))return "###";
+findbylin[i]="#";
+find.close();
+stmt.close();
+conn.close();
+
+return lin;
+}
+
+public String findbyname(String name) throws Exception {
+Class.forName("com.mysql.cj.jdbc.Driver");
+Connection conn=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/kebiao", "root", "123456");
+String sql="select * from station_information";
+Statement stmt= conn.createStatement();
+ResultSet find=stmt.executeQuery(sql);
+while(find.next()) {
+if(find.getString(3).equals(name)) {
+findbyname[j]=new String();
+findbyname[j]=find.getString(2);
+j++;
+}
+}
+
+if(findbyname[0].equals(null))return "###";
+findbyname[j]="#";
+find.close();
+stmt.close();
+conn.close();
+
+
+return name;
+}
+
+public String findbys_s(String sname,String names) throws Exception {
+
+/*String form[]=new String[15];
+String after[]=new String[15];
+int f=0,a=0;*/
+int i=0;
+String chaxun[][]=new String[15][2];
+String temp="0";
+
+Class.forName("com.mysql.cj.jdbc.Driver");
+Connection conn=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/kebiao",

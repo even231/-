@@ -1,0 +1,313 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>北京市地铁管理系统</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <script type="text/javascript" src="js/vue.js"></script>
+  <script src="js/jquery-3.6.0.js"></script>
+  <link rel="stylesheet" href="layui/css/layui.css" tppabs="http://res.layui.com/layui/dist/css/layui.css"  media="all">
+  <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+</head>
+<style>
+  #Ai{
+    display: none;
+  }
+  #Bi
+  {
+    display: none;
+  }
+  #Ci{
+
+    display: none;
+  }
+</style>
+<body>
+
+
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
+  <legend>地铁查询</legend>
+</fieldset>
+
+<div class="layui-tab layui-tab-card">
+  <ul class="layui-tab-title">
+    <li class="layui-this">线路查询</li>
+    <li>站点查询</li>
+    <li>起点-终点查询</li>
+  </ul>
+  <div class="layui-tab-content" style="height: 30px;">
+    <div class="layui-tab-item layui-show">
+      <div class="layui-form-item">
+        <label class="layui-form-label">线路查询</label>
+        <div class="layui-input-inline">
+          <input id ="Xid" type="text" required  lay-verify="required" placeholder="请输入线路名称" autocomplete="off" class="layui-input">
+        </div>
+        <button type="button" class="layui-btn" onclick="Information()">查询</button>
+      </div>
+    </div>
+
+    <div class="layui-tab-item">
+      <div class="layui-tab-item layui-show">
+        <div class="layui-form-item">
+          <label class="layui-form-label">站点查询</label>
+          <div class="layui-input-inline">
+            <input type="text" name="username" id="Zname" required  lay-verify="required" placeholder="请输入站点名称" autocomplete="off" class="layui-input">
+
+          </div>
+          <button type="button" class="layui-btn" onclick="ZInformation()">查询</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="layui-tab-item">
+      <div class="layui-tab-item layui-show">
+        <div class="layui-form-item">
+          <label class="layui-form-label">起点</label>
+          <div class="layui-input-inline">
+            <input type="text" name="username" id ="start" required  lay-verify="required" placeholder="请输入起点名称" autocomplete="off" class="layui-input">
+
+          </div>
+          <label class="layui-form-label">终点</label>
+          <div class="layui-input-inline">
+            <input type="text" name="username"   id ="end"required  lay-verify="required" placeholder="请输入终点名称" autocomplete="off" class="layui-input">
+
+          </div>
+          <button type="button" class="layui-btn"onclick="SInformation()">查询</button>
+        </div>
+
+      </div>
+    </div>
+
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
+      <legend>查询信息</legend>
+    </fieldset>
+    <div  class="layui-form" id="Ai">
+      <table class="layui-table" id="information">
+        <colgroup>
+          <col width="auto">
+          <col width="auto">
+          <col width="auto">
+          <col width="auto">
+          <col width="auto">
+          <col width="auto">
+          <col width="auto">
+          <col width="auto">
+        </colgroup>
+        <thead>
+        <tr >
+          <!-- <th>线路ID</th>
+           <th>线路名称</th>
+           <th>车站ID</th>-->
+          <th>车站名称</th>
+          <!-- <th>下一站名称</th>-->
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="site in itemss">
+          <!--<td> {{ site.xid }}</td>
+          <td> {{ site.xname }}</td>
+          <td> {{ site.cid }}</td>-->
+          <td> {{ site.zname}}</td>
+          <!-- <td> {{ site.next }}</td>-->
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div  class="layui-form" id="Bi">
+      <table class="layui-table" id="Zinformation">
+        <colgroup>
+          <col width="auto">
+          <col width="auto">
+          <col width="auto">
+          <col width="auto">
+          <col width="auto">
+          <col width="auto">
+          <col width="auto">
+          <col width="auto">
+        </colgroup>
+        <thead>
+        <tr >
+          <%--<th>线路ID</th>--%>
+          <th>线路名称</th>
+         <%-- <th>车站ID</th>
+          <th>车站名称</th>
+          <th>下一站名称</th>--%>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="site in itemss">
+         <%-- <td> {{ site.xid }}</td>--%>
+          <td> {{ site.xname }}</td>
+         <%-- <td> {{ site.cid }}</td>
+          <td> {{ site.zname}}</td>
+          <td> {{ site.next }}</td>--%>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div  class="layui-form" id="Ci">
+      <table class="layui-table" id="Sinformation">
+        <colgroup>
+          <col width="auto">
+          <col width="auto">
+          <col width="auto">
+          <col width="auto">
+          <col width="auto">
+          <col width="auto">
+          <col width="auto">
+          <col width="auto">
+        </colgroup>
+        <thead>
+        <tr >
+          <th>线路名称</th>
+          <th>车站名称</th>
+          <th>下一站名称</th>
+          <th>换乘线路</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="site in itemss">
+          <td> {{ site.xname }}</td>
+          <td> {{ site.zname}}</td>
+          <td> {{ site.next }}</td>
+          <td> {{ site.changestop }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <script>
+      function   SInformation(){
+        var start=$("#start").val();
+        var end=$("#end").val();
+        var tableVue = new Vue({
+          el:"#Sinformation",
+          data:{
+            itemss:[]
+          }
+        });
+
+        $.ajax({
+          url: "ServletStart?now=" + new Date().getTime(),
+          type: "GET",
+          data: {"start":start,"end":end},
+          success: function (data) {
+            //var data = JSON.parse( jsonObj );//解析json对象
+            tableVue.itemss=data;
+          },//响应成功后的回调函数
+          error: function () {
+            alert("出错啦...")
+          },//表示如果请求响应出现错误，会执行的回调函数
+          dataType: "json"//设置接受到的响应数据的格式
+        });
+        document.getElementById("Bi").style.display="none";
+        document.getElementById("Ai").style.display="none";
+        document.getElementById("Ci").style.display="block";
+      }
+    </script>
+    <script>
+      function   Information(){
+        var Xid = $("#Xid").val();
+        var tableVue = new Vue({
+          el:"#information",
+          data:{
+            itemss:[]
+          }
+        });
+
+        $.ajax({
+          url: "ServletXian",
+          type: "GET",
+          data: {"Xid":Xid},
+          success: function (data) {
+            //var data = JSON.parse( jsonObj );//解析json对象
+            tableVue.itemss=data;
+          },//响应成功后的回调函数
+          error: function () {
+            alert("出错啦...")
+          },//表示如果请求响应出现错误，会执行的回调函数
+          dataType: "json"//设置接受到的响应数据的格式
+        });
+        document.getElementById("Bi").style.display="none";
+        document.getElementById("Ai").style.display="block";
+      }
+    </script>
+    <script>
+      function   ZInformation(){
+        var Zname = $("#Zname").val();
+        var tableVue = new Vue({
+          el:"#Zinformation",
+          data:{
+            itemss:[]
+          }
+        });
+
+        $.ajax({
+          url: "ServletZhan",
+          type: "GET",
+          data: {"Zname":Zname},
+          success: function (data) {
+            //var data = JSON.parse( jsonObj );//解析json对象
+            tableVue.itemss=data;
+          },//响应成功后的回调函数
+          error: function () {
+            alert("出错啦...")
+          },//表示如果请求响应出现错误，会执行的回调函数
+          dataType: "json"//设置接受到的响应数据的格式
+        });
+        document.getElementById("Ai").style.display="none";
+        document.getElementById("Bi").style.display="block";
+      }
+
+    </script>
+
+    <script src="layui/layui.js" charset="utf-8"></script>
+    <!-- 注意：如果你直接复制所有代码到本地，上述 JS 路径需要改成你本地的 -->
+    <script>
+      layui.use('element', function(){
+        var $ = layui.jquery
+                ,element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
+
+        //触发事件
+        var active = {
+          tabAdd: function(){
+            //新增一个Tab项
+            element.tabAdd('demo', {
+              title: '新选项'+ (Math.random()*1000|0) //用于演示
+              ,content: '内容'+ (Math.random()*1000|0)
+              ,id: new Date().getTime() //实际使用一般是规定好的id，这里以时间戳模拟下
+            })
+          }
+          ,tabDelete: function(othis){
+            //删除指定Tab项
+            element.tabDelete('demo', '44'); //删除：“商品管理”
+
+
+            othis.addClass('layui-btn-disabled');
+          }
+          ,tabChange: function(){
+            //切换到指定Tab项
+            element.tabChange('demo', '22'); //切换到：用户管理
+          }
+        };
+
+        $('.site-demo-active').on('click', function(){
+          var othis = $(this), type = othis.data('type');
+          active[type] ? active[type].call(this, othis) : '';
+        });
+
+        //Hash地址的定位
+        var layid = location.hash.replace(/^#test=/, '');
+        element.tabChange('test', layid);
+
+        element.on('tab(test)', function(elem){
+          location.hash = 'test='+ $(this).attr('lay-id');
+        });
+
+      });
+    </script>
+</body>
+</html>

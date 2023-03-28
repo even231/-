@@ -1,0 +1,25 @@
+java
+Copy code
+public class DatabaseHelper extends SQLiteOpenHelper {
+    private static final String DATABASE_NAME = "subway.db";
+    private static final int DATABASE_VERSION = 1;
+
+    public DatabaseHelper(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
+
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        db.execSQL("CREATE TABLE stations (_id INTEGER PRIMARY KEY, name TEXT NOT NULL, line_id INTEGER NOT NULL);");
+        db.execSQL("CREATE TABLE lines (_id INTEGER PRIMARY KEY, name TEXT NOT NULL, color TEXT NOT NULL);");
+        db.execSQL("CREATE TABLE station_lines (_id INTEGER PRIMARY KEY, station_id INTEGER NOT NULL, line_id INTEGER NOT NULL, FOREIGN KEY (station_id) REFERENCES stations (_id), FOREIGN KEY (line_id) REFERENCES lines (_id));");
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL("DROP TABLE IF EXISTS stations;");
+        db.execSQL("DROP TABLE IF EXISTS lines;");
+        db.execSQL("DROP TABLE IF EXISTS station_lines;");
+        onCreate(db);
+    }
+}

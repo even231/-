@@ -1,0 +1,8 @@
+java
+Copy code
+public class BaiduMapPathFinder {
+    private static final String AK = "your_ak";
+    private static final String ROUTE_URL = "http://api.map.baidu.com/directionlite/v1/transit?origin=%s&destination=%s&ak=%s";
+    private static final int TIMEOUT = 10000;
+
+    public static String getRoute(String origin,
